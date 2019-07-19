@@ -1,0 +1,139 @@
+﻿<Window x:Class="GUI.Payment_View"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GUI"
+        mc:Ignorable="d"
+        Title="Payment View" Height="450" Width="800">
+    <Grid>
+        <Grid Grid.Column="0" Margin="130,40,130,250" Grid.Row="1">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="30">Deuda</Label>
+            <Label Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="30">Depositado</Label>
+            <Label Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="30">Restante</Label>
+
+            <Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal">
+                    <Label Foreground="#FF0C00FF" FontSize="30">$</Label>
+                    <Label x:Name="infDeuda2" Content="0" Foreground="#FF0C00FF" FontSize="30"></Label>
+                </StackPanel>
+            </Label>
+            <Label  Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal">
+                    <Label Foreground="#FF0C00FF" FontSize="30">$</Label>
+                    <Label x:Name="infDepositado" Content="0" Foreground="#FF0C00FF" FontSize="30"></Label>
+                </StackPanel>
+            </Label>
+            <Label  Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="30">
+                <StackPanel Orientation="Horizontal">
+                    <Label Foreground="#FF0C00FF" FontSize="30">$</Label>
+                    <Label x:Name="infRestante" Content="0"  Foreground="#FF0C00FF" FontSize="30"></Label>
+                </StackPanel>
+            </Label>
+
+
+
+        </Grid>
+
+        <Grid Grid.Column="0" Margin="180,200,180,190"  Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Button Grid.Column="0" x:Name="Quinientos" Margin="2,2" Click="Quinientos_Click">$500</Button>
+            <Button Grid.Column="1" x:Name="Docientos" Margin="2,2" Click="Docientos_Click">$200</Button>
+            <Button Grid.Column="2" x:Name="Cien" Margin="2,2" Click="Cien_Click">$100</Button>
+            <Button Grid.Column="3" x:Name="Ciencuenta" Margin="2,2" Click="Ciencuenta_Click">$50</Button>
+            <Button Grid.Column="4" x:Name="Veinte" Margin="2,2" Click="Veinte_Click">$20</Button>
+
+        </Grid>
+
+        <Grid Grid.Column="0" Margin="200,240,200,120"  Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Button Grid.Column="0" x:Name="Diez" Background="White" BorderBrush="White" Click="Diez_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="dinero/10pesos.png" Width="55"></Image>
+                </StackPanel>
+            </Button>
+            <Button Grid.Column="1" x:Name="Cinco" BorderBrush="White" Background="White" Click="Cinco_Click_1" >
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="dinero/5pesos.png" Width="55"></Image>
+                </StackPanel>
+            </Button>
+            <Button Grid.Column="2" x:Name="Dos" Background="White" BorderBrush="White" Click="Dos_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="dinero/2pesos.png" Width="55"></Image>
+                </StackPanel>
+            </Button>
+            <Button Grid.Column="3" x:Name="Uno" Background="White" BorderBrush="White" Click="Uno_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="dinero/1peso.png" Width="55"></Image>
+                </StackPanel>
+            </Button>
+            <Button Grid.Column="4" x:Name="CincoCentavos" Background="{x:Null}" BorderBrush="White" Click="CincoCentavos_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="dinero/5Centavos.png" Width="55"></Image>
+                </StackPanel>
+            </Button>
+
+        </Grid>
+        <Grid Grid.Column="0" Margin="10,350,10,10"  Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="174*"/>
+                <ColumnDefinition Width="134*"/>
+                <ColumnDefinition Width="155*"/>
+                <ColumnDefinition Width="154*"/>
+                <ColumnDefinition Width="155*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Button x:Name="Cancelar" Grid.Column="0" Click="Button_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="back_arrow.png" Width="40"></Image>
+                    <TextBlock Text="Cancelar" FontSize="28" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10"></TextBlock>
+                </StackPanel>
+            </Button>
+            <Button x:Name="Pagar" Grid.Column="4" Click="Pagar_Click">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Pagar" FontSize="28" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10"></TextBlock>
+                    <Image Source="forward_arrow.png" Width="40"></Image>
+                </StackPanel>
+            </Button>
+        </Grid>
+    </Grid>
+</Window>
