@@ -5,10 +5,9 @@ using System.Windows.Input;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-//using System.Net;
-//using System.IO;
-//using Newtonsoft.Json;
-//using System.Data;
+using System.Net;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace GUI
 {
@@ -17,7 +16,7 @@ namespace GUI
     /// </summary>
     public partial class AccountView : Window
     {
-        
+
 
         public AccountView()
         {
@@ -25,22 +24,13 @@ namespace GUI
 
             var mensaje = ConfigurationManager.AppSettings["mensaje"];
             Console.WriteLine(mensaje);
-
-
-
-            
-
-           
-
             Console.Read();
-
-
         }
 
-        
-            
 
-        
+
+
+
 
         //------------- Eventos de Caja de Texto ------------//
         private void IdUsuario_MouseEnter(object sender, MouseEventArgs e)
@@ -65,8 +55,6 @@ namespace GUI
 
 
 
-
-
         //------------------------//
         // Eventos de los Números //
         //------------------------//
@@ -76,7 +64,8 @@ namespace GUI
 
         private void gridDigitos_Click(object sender, RoutedEventArgs e)
         {
-            if (IdUsuario.Text =="Número de cuenta ..."){
+            if (IdUsuario.Text == "Número de cuenta ...")
+            {
                 IdUsuario.Text = "";
             }
             //Comprobamos que el evento se originó en un botón.(recordar que WPF maneja eventos enrutados que son diferentes a los eventos win form clásicos.
@@ -118,84 +107,88 @@ namespace GUI
 
         public void Aceptar_Click(object sender, RoutedEventArgs e)
         {
-            
 
+            //---------------Consultando cuenta de Usuario --------------------//
             if (IdUsuario.Text == "" || IdUsuario.Text == "Número de cuenta ...")
             {
-
+                IdUsuario.Text = "No existe";
             }
             else
             {
-                /*
+                // ---- Base de datos Externa ---- //
                 string cuenta = IdUsuario.Text;
-                string url = "" + cuenta;
+                string url = "http://linkxenter.com:3000/account_balance?token=201ada5e70948aceb033a6c7fe1a3c4d&account=" + cuenta;
                 var json = new WebClient().DownloadString(url);
                 dynamic m = JsonConvert.DeserializeObject(json);
 
-                string Usuario = m.user;
-                string Deuda = m.debt;
+                string Usuario1 = m.user;
+                string Deuda1 = m.debt;
 
                 if (m.message == "no existen datos del usuario.")
                 {
-
+                    IdUsuario.Text = "No existe";
                 }
                 else
                 {
-                    Balance_View objThirdWindow = new Balance_View(cuenta, Usuario, Deuda);
-                    this.Visibility = Visibility.Hidden;
-                    objThirdWindow.Show();
-                }
-               */
+                    // ----- Base de datos Local -----//
+                    var conectionString = ConfigurationManager.ConnectionStrings["GUI.Properties.Settings.kioskoConnectionString"].ConnectionString;
 
-                var conectionString = ConfigurationManager.ConnectionStrings["GUI.Properties.Settings.kioskoConnectionString"].ConnectionString;
-
-                string cuenta = IdUsuario.Text;
-                Console.WriteLine(cuenta);
-                var query = @"SELECT Customer,Debt 
+                    var query = @"SELECT Customer,Debt 
                         from ClienteDB
                         where Account =@cuenta";
-                
-
-                using (SqlConnection sql = new SqlConnection(conectionString))
-                {
-                    using (SqlCommand cmd = new SqlCommand(query, sql))
+                    
+                    using (SqlConnection sql = new SqlConnection(conectionString))
                     {
-                        cmd.Parameters.Add(new SqlParameter("@cuenta", cuenta));
-                        DataTable dt = new DataTable();
-                        SqlDataAdapter da = new SqlDataAdapter(cmd);
-                        sql.Open();
-                        da.Fill(dt);
-                        
-                        
-                        SqlDataReader reader = cmd.ExecuteReader();
+                        using (SqlCommand cmd = new SqlCommand(query, sql))
+                        {
+                            cmd.Parameters.Add(new SqlParameter("@cuenta", cuenta));
+                            DataTable dt = new DataTable();
+                            SqlDataAdapter da = new SqlDataAdapter(cmd);
+                            sql.Open();
+                            da.Fill(dt);
 
-                        if (reader.Read())
-                        {
-                            Console.WriteLine(String.Format("{0}", reader[0]));
-                            var Usuario = String.Format("{0}", reader[0]);
-                            var Deuda = String.Format("{0}", reader[1]);
-                            Balance_View objThirdWindow = new Balance_View(cuenta, Usuario, Deuda);
-                            this.Visibility = Visibility.Hidden;
-                            objThirdWindow.Show();
-                        }
-                        else
-                        {
-                            
+
+                            SqlDataReader reader = cmd.ExecuteReader();
+
+                            if (reader.Read())
+                            {
+                                Console.WriteLine(String.Format("{0}", reader[0]));
+                                var Usuario2 = String.Format("{0}", reader[0]);
+                                var Deuda2 = String.Format("{0}", reader[1]);
+
+
+                                //--- Comparacion entre bases ---//
+                                if (Usuario1 == Usuario2)
+                                {
+                                    if (Deuda1 == Deuda2)
+                                    {
+                                        var Usuario = Usuario1;
+                                        var Deuda = Deuda1;
+                                        
+                                        //---- Envio de información a siguentes ventana ----//
+                                        Balance_View objThirdWindow = new Balance_View(cuenta, Usuario, Deuda);
+                                        this.Visibility = Visibility.Hidden;
+                                        objThirdWindow.Show();
+                                    }
+                                    else
+                                    {
+                                        IdUsuario.Text = "Error de deuda";
+                                    }
+                                }
+                                else
+                                {
+                                    IdUsuario.Text = "Error de usuarios";
+                                }
+                            }
+                            else
+                            {
+                                
+                            }
                         }
 
                     }
-
                 }
-
-
-
-
-
             }
-
-
         }
-
-
     }
 }

@@ -1,19 +1,9 @@
 ﻿using System;
 using System.Windows;
-using System.Data;
 using System.Data.SqlClient;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Configuration;
+using System.Net;
+using System.IO;
 
 namespace GUI
 {
@@ -124,12 +114,17 @@ namespace GUI
         
         private void Pagar_Click(object sender, RoutedEventArgs e)
         {
+
+            //---- VAriables ------//
             double depositado = Convert.ToDouble(infDepositado.Content);
             double Deuda = Convert.ToDouble(infDeuda2.Content);
             double Restante = Convert.ToDouble(infRestante.Content);
             DateTime Fecha = DateTime.Now;
             var cuenta = Usuario;
+            new SqlParameter("@cuenta", cuenta);
+            new SqlParameter("@depostado", depositado);
 
+            //---- Ingresando datos de pago en base de datos Interna ------//
             var conectionString = ConfigurationManager.ConnectionStrings["GUI.Properties.Settings.kioskoConnectionString"].ConnectionString;
 
             var query = "UPDATE ClienteDB SET  Debt=@a1 , Paid=@a2 , Date=@a3 WHERE Customer=@a4";
@@ -145,6 +140,44 @@ namespace GUI
                     cmd.Parameters.Add("a4", cuenta);
                     cmd.ExecuteNonQuery();
                 }
+
+
+                //---- Ingresando datos de pago en base de datos externa ------//
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://linkxenter.com:3000l/transaction?token=201ada5e70948aceb033a6c7fe1a3c4d");
+                httpWebRequest.ContentType = "application/json";
+                httpWebRequest.Method = "POST";
+
+
+                using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+                {
+                    string json = "{\"account\":\"@cuenta\"," +
+                                  "\"paid\":\"@depositado\"}";
+
+                    streamWriter.Write(json);
+                }
+
+                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                {
+                    var result = streamReader.ReadToEnd();
+                    Console.WriteLine(result);
+                }
+
+
+                
+                //----- comparacion de datos entre bases de datos -----//
+
+
+                              //--- Peticion a base de datos local ---//
+
+
+
+
+                            //--- Peticion a base de datos externa ---//
+
+
+
+                //------ Finalizando Procedimientos -------//
 
                 MainWindow objFirstWindow = new MainWindow();
                 this.Visibility = Visibility.Hidden;
