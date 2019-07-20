@@ -5,3 +5,5 @@ Visula estudios
  WPF
   -XAML
   -c#
+  
+Tablas realizadas en Micrsoft SQL Server
