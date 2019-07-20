@@ -29,3 +29,5 @@ C:\Users\jaec1\source\repos\GUI\GUI\bin\Debug\RestSharp.xml
 C:\Users\jaec1\source\repos\GUI\GUI\obj\Debug\GUI.csproj.CopyComplete
 C:\Users\jaec1\source\repos\GUI\GUI\obj\Debug\Payment View.g.cs
 C:\Users\jaec1\source\repos\GUI\GUI\obj\Debug\Payment View.baml
+C:\Users\jaec1\source\repos\GUI\GUI\bin\Debug\DeviceLibrary.dll
+C:\Users\jaec1\source\repos\GUI\GUI\bin\Debug\DeviceLibrary.pdb

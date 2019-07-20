@@ -123,6 +123,7 @@ namespace GUI
 
                 string Usuario1 = m.user;
                 string Deuda1 = m.debt;
+                Console.WriteLine(Usuario1);
 
                 if (m.message == "no existen datos del usuario.")
                 {
@@ -173,11 +174,17 @@ namespace GUI
                                     else
                                     {
                                         IdUsuario.Text = "Error de deuda";
+                                        Console.WriteLine(Deuda1.GetType());
+                                        Console.WriteLine(Deuda2.GetType());
+                                        Console.WriteLine(Deuda1);
+                                        Console.WriteLine(Deuda2);
                                     }
                                 }
                                 else
                                 {
                                     IdUsuario.Text = "Error de usuarios";
+                                    Console.WriteLine(Usuario1.GetType());
+                                    Console.WriteLine(Usuario2.GetType());
                                 }
                             }
                             else

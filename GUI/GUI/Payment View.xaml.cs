@@ -4,6 +4,9 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Net;
 using System.IO;
+using Newtonsoft.Json;
+using System.Data;
+using DeviceLibrary;
 
 namespace GUI
 {
@@ -143,17 +146,17 @@ namespace GUI
 
 
                 //---- Ingresando datos de pago en base de datos externa ------//
-                var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://linkxenter.com:3000l/transaction?token=201ada5e70948aceb033a6c7fe1a3c4d");
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://linkxenter.com:3001/transaction?token=201ada5e70948aceb033a6c7fe1a3c4d");
                 httpWebRequest.ContentType = "application/json";
                 httpWebRequest.Method = "POST";
 
 
                 using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
                 {
-                    string json = "{\"account\":\"@cuenta\"," +
-                                  "\"paid\":\"@depositado\"}";
+                    string json2 = "{account:"+cuenta+","+
+                                    "paid:"+depositado+"}";
 
-                    streamWriter.Write(json);
+                    streamWriter.Write(json2);
                 }
 
                 var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
@@ -164,24 +167,84 @@ namespace GUI
                 }
 
 
-                
+
                 //----- comparacion de datos entre bases de datos -----//
 
 
-                              //--- Peticion a base de datos local ---//
+                // ---- Base de datos Externa ---- //
+                string url = "http://linkxenter.com:3000/account_balance?token=201ada5e70948aceb033a6c7fe1a3c4d&account=" + cuenta;
+                var json = new WebClient().DownloadString(url);
+                dynamic m = JsonConvert.DeserializeObject(json);
+
+                string Usuario1 = m.user;
+                string Deuda1 = m.debt;
+
+                if (m.message == "no existen datos del usuario.")
+                {
+                    Console.WriteLine("no se logro encontrar usuario en base externa");
+                }
+                else
+                {
+                    // ----- Base de datos Local -----//
+                    var conectionString2 = ConfigurationManager.ConnectionStrings["GUI.Properties.Settings.kioskoConnectionString"].ConnectionString;
+
+                    var query2 = @"SELECT Customer,Debt 
+                        from ClienteDB
+                        where Account =@cuenta";
+
+                    using (SqlConnection sql2 = new SqlConnection(conectionString2))
+                    {
+                        using (SqlCommand cmd = new SqlCommand(query2, sql2))
+                        {
+                            cmd.Parameters.Add(new SqlParameter("@cuenta", cuenta));
+                            DataTable dt = new DataTable();
+                            SqlDataAdapter da = new SqlDataAdapter(cmd);
+                            sql2.Open();
+                            da.Fill(dt);
+
+
+                            SqlDataReader reader = cmd.ExecuteReader();
+
+                            if (reader.Read())
+                            {
+                                Console.WriteLine(String.Format("{0}", reader[0]));
+                                var Usuario2 = String.Format("{0}", reader[0]);
+                                var Deuda2 = String.Format("{0}", reader[1]);
+
+
+                                //--- Comparacion entre bases ---//
+                                if (Usuario1 == Usuario2)
+                                {
+                                    if (Deuda1 == Deuda2)
+                                    {
+                                        //------ Finalizando Procedimientos -------//
+
+                                        MainWindow objFirstWindow = new MainWindow();
+                                        this.Visibility = Visibility.Hidden;
+                                        objFirstWindow.Show();
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("La deuda no es la misma entre bases");
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Usuario no es el mismo entre bases");
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("No se logro hacer la lectura ne vase de datos local");
+                            }
+                        }
+
+                    }
+                }
 
 
 
 
-                            //--- Peticion a base de datos externa ---//
-
-
-
-                //------ Finalizando Procedimientos -------//
-
-                MainWindow objFirstWindow = new MainWindow();
-                this.Visibility = Visibility.Hidden;
-                objFirstWindow.Show();
             }
         }
     }
