@@ -1,100 +1,173 @@
-﻿using System;
-using System.Windows;
-using System.Data.SqlClient;
-using System.Configuration;
-using System.Net;
-using System.IO;
+﻿using DeviceLibrary.Models;
 using Newtonsoft.Json;
+using System;
+using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
+using System.IO;
+using System.Net;
+using System.Windows;
 using DeviceLibrary;
+
 
 namespace GUI
 {
     /// <summary>
     /// Lógica de interacción para Payment_View.xaml
     /// </summary>
+    /// 
+
+
     public partial class Payment_View : Window
     {
         double pago = 0;
 
-        public Payment_View(string Usuario, string Deuda)
+
+        public Payment_View(string Cuenta, string Usuario, string Deuda)
         {
             InitializeComponent();
             Console.WriteLine(Deuda);
             infDeuda2.Content = Deuda;
             this.Usuario = Usuario;
-        }
+            this.Cuenta = Cuenta;
 
+
+        }
+        //----- Variables Publicas ----//
         string Usuario;
+        string Cuenta;
+
+
 
         private void Quinientos_Click(object sender, RoutedEventArgs e)
         {
-            pago = pago + 500;
-            infDepositado.Content = pago;
-            infRestante.Content = Convert.ToDouble(infDeuda2.Content) - pago;
+            var Bill = DeviceLibrary.Models.Enums.DocumentType.Bill;
+            Document objquinientos = new Document(500, Bill, 500);
+            var deviceLibrary = new DeviceLibrary.DeviceLibrary();
+            deviceLibrary.SimulateInsertion(objquinientos);
+            Console.WriteLine(objquinientos.Count);
 
-               
+            pago = pago + objquinientos.Count;
+            infDepositado.Content = pago;   
+            infRestante.Content = Convert.ToDouble(infDeuda2.Content) - pago;
+            
+
         }
+
 
         private void Docientos_Click(object sender, RoutedEventArgs e)
         {
-            pago = pago + 200;
+            var Bill = DeviceLibrary.Models.Enums.DocumentType.Bill;
+            Document objdocientos = new Document(200, Bill, 200);
+            var deviceLibrary = new DeviceLibrary.DeviceLibrary();
+            deviceLibrary.SimulateInsertion(objdocientos);
+            Console.WriteLine(objdocientos.Count);
+
+            pago = pago + objdocientos.Count;
             infDepositado.Content = pago;
             infRestante.Content = Convert.ToDouble(infDeuda2.Content) - pago;
         }
 
         private void Cien_Click(object sender, RoutedEventArgs e)
         {
-            pago = pago + 100;
+            var Bill = DeviceLibrary.Models.Enums.DocumentType.Bill;
+            Document objcien = new Document(100, Bill, 100);
+            var deviceLibrary = new DeviceLibrary.DeviceLibrary();
+            deviceLibrary.SimulateInsertion(objcien);
+            Console.WriteLine(objcien.Count);
+
+            pago = pago + objcien.Count;
             infDepositado.Content = pago;
             infRestante.Content = Convert.ToDouble(infDeuda2.Content) - pago;
         }
 
         private void Ciencuenta_Click(object sender, RoutedEventArgs e)
         {
-            pago = pago + 50;
+            var Bill = DeviceLibrary.Models.Enums.DocumentType.Bill;
+            Document objcincuenta = new Document(50, Bill, 50);
+            var deviceLibrary = new DeviceLibrary.DeviceLibrary();
+            deviceLibrary.SimulateInsertion(objcincuenta);
+            Console.WriteLine(objcincuenta.Count);
+
+            pago = pago + objcincuenta.Count;
             infDepositado.Content = pago;
             infRestante.Content = Convert.ToDouble(infDeuda2.Content) - pago;
         }
 
         private void Veinte_Click(object sender, RoutedEventArgs e)
         {
-            pago = pago + 20;
+            var Bill = DeviceLibrary.Models.Enums.DocumentType.Bill;
+            Document objveinte = new Document(20, Bill, 20);
+            var deviceLibrary = new DeviceLibrary.DeviceLibrary();
+            deviceLibrary.SimulateInsertion(objveinte);
+            Console.WriteLine(objveinte.Count);
+
+            pago = pago + objveinte.Count;
             infDepositado.Content = pago;
             infRestante.Content = Convert.ToDouble(infDeuda2.Content) - pago;
         }
 
         private void Diez_Click(object sender, RoutedEventArgs e)
         {
-            pago = pago + 10;
+            var Coin = DeviceLibrary.Models.Enums.DocumentType.Coin;
+            Document objveinte = new Document(10, Coin, 10);
+            var deviceLibrary = new DeviceLibrary.DeviceLibrary();
+            deviceLibrary.SimulateInsertion(objveinte);
+            Console.WriteLine(objveinte.Count);
+
+            pago = pago + objveinte.Count;
             infDepositado.Content = pago;
             infRestante.Content = Convert.ToDouble(infDeuda2.Content) - pago;
         }
 
         private void Cinco_Click_1(object sender, RoutedEventArgs e)
         {
-            pago = pago + 5;
+            var Coin = DeviceLibrary.Models.Enums.DocumentType.Coin;
+            Document objcinco = new Document(5, Coin, 5);
+            var deviceLibrary = new DeviceLibrary.DeviceLibrary();
+            deviceLibrary.SimulateInsertion(objcinco);
+            Console.WriteLine(objcinco.Count);
+
+            pago = pago + objcinco.Count;
             infDepositado.Content = pago;
             infRestante.Content = Convert.ToDouble(infDeuda2.Content) - pago;
         }
 
         private void Dos_Click(object sender, RoutedEventArgs e)
         {
-            pago = pago + 2;
+            var Coin = DeviceLibrary.Models.Enums.DocumentType.Coin;
+            Document objdos = new Document(2, Coin, 2);
+            var deviceLibrary = new DeviceLibrary.DeviceLibrary();
+            deviceLibrary.SimulateInsertion(objdos);
+            Console.WriteLine(objdos.Count);
+
+            pago = pago + objdos.Count;
             infDepositado.Content = pago;
             infRestante.Content = Convert.ToDouble(infDeuda2.Content) - pago;
         }
 
         private void Uno_Click(object sender, RoutedEventArgs e)
         {
-            pago = pago + 1;
+            var Coin = DeviceLibrary.Models.Enums.DocumentType.Coin;
+            Document objuno = new Document(1, Coin, 1);
+            var deviceLibrary = new DeviceLibrary.DeviceLibrary();
+            deviceLibrary.SimulateInsertion(objuno);
+            Console.WriteLine(objuno.Count);
+
+            pago = pago + objuno.Count;
             infDepositado.Content = pago;
             infRestante.Content = Convert.ToDouble(infDeuda2.Content) - pago;
         }
 
         private void CincoCentavos_Click(object sender, RoutedEventArgs e)
         {
-            pago = pago + 0.05;
+            var Coin = DeviceLibrary.Models.Enums.DocumentType.Coin;
+            Document objCincoCentavos = new Document(1/2, Coin, 1/2);
+            var deviceLibrary = new DeviceLibrary.DeviceLibrary();
+            deviceLibrary.SimulateInsertion(objCincoCentavos);
+            Console.WriteLine(objCincoCentavos.Count);
+
+            pago = pago + objCincoCentavos.Count;
             infDepositado.Content = pago;
             infRestante.Content = Convert.ToDouble(infDeuda2.Content) - pago;
         }
@@ -118,15 +191,13 @@ namespace GUI
         private void Pagar_Click(object sender, RoutedEventArgs e)
         {
 
-            //---- VAriables ------//
+            //---- Variables ------//
             double depositado = Convert.ToDouble(infDepositado.Content);
             double Deuda = Convert.ToDouble(infDeuda2.Content);
             double Restante = Convert.ToDouble(infRestante.Content);
             DateTime Fecha = DateTime.Now;
-            var cuenta = Usuario;
-            new SqlParameter("@cuenta", cuenta);
-            new SqlParameter("@depostado", depositado);
-
+            
+     
             //---- Ingresando datos de pago en base de datos Interna ------//
             var conectionString = ConfigurationManager.ConnectionStrings["GUI.Properties.Settings.kioskoConnectionString"].ConnectionString;
 
@@ -140,39 +211,45 @@ namespace GUI
                     cmd.Parameters.Add("a1", Restante);
                     cmd.Parameters.Add("a2", depositado);
                     cmd.Parameters.Add("a3", Fecha);
-                    cmd.Parameters.Add("a4", cuenta);
+                    cmd.Parameters.Add("a4", Usuario);
                     cmd.ExecuteNonQuery();
                 }
 
 
                 //---- Ingresando datos de pago en base de datos externa ------//
-                var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://linkxenter.com:3001/transaction?token=201ada5e70948aceb033a6c7fe1a3c4d");
-                httpWebRequest.ContentType = "application/json";
-                httpWebRequest.Method = "POST";
+
+                var httpWebRequest2 = (HttpWebRequest)WebRequest.Create("http://linkxenter.com:3000/transaction?token=201ada5e70948aceb033a6c7fe1a3c4d");
+                httpWebRequest2.ContentType = "application/json";
+                httpWebRequest2.Method = "POST";
+                var usuario = Usuario;
 
 
-                using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+
+                using (var streamWriter = new StreamWriter(httpWebRequest2.GetRequestStream()))
                 {
-                    string json2 = "{account:"+cuenta+","+
-                                    "paid:"+depositado+"}";
+                    
+
+                    string json2 = JsonConvert.SerializeObject(new { account = Cuenta , paid = depositado });
+
 
                     streamWriter.Write(json2);
+                    Console.WriteLine(json2);
                 }
 
-                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                var httpResponse2 = (HttpWebResponse)httpWebRequest2.GetResponse();
+                using (var streamReader = new StreamReader(httpResponse2.GetResponseStream()))
                 {
-                    var result = streamReader.ReadToEnd();
-                    Console.WriteLine(result);
-                }
+                    var result = JsonConvert.DeserializeObject(streamReader.ReadToEnd());
 
+                    Console.WriteLine("Respuesta de BD externa:"+ result);
+                }
 
 
                 //----- comparacion de datos entre bases de datos -----//
 
 
                 // ---- Base de datos Externa ---- //
-                string url = "http://linkxenter.com:3000/account_balance?token=201ada5e70948aceb033a6c7fe1a3c4d&account=" + cuenta;
+                string url = "http://linkxenter.com:3000/account_balance?token=201ada5e70948aceb033a6c7fe1a3c4d&account=" + Cuenta;
                 var json = new WebClient().DownloadString(url);
                 dynamic m = JsonConvert.DeserializeObject(json);
 
@@ -182,6 +259,7 @@ namespace GUI
                 if (m.message == "no existen datos del usuario.")
                 {
                     Console.WriteLine("no se logro encontrar usuario en base externa");
+                    Console.WriteLine(Usuario1);
                 }
                 else
                 {
@@ -196,7 +274,7 @@ namespace GUI
                     {
                         using (SqlCommand cmd = new SqlCommand(query2, sql2))
                         {
-                            cmd.Parameters.Add(new SqlParameter("@cuenta", cuenta));
+                            cmd.Parameters.Add(new SqlParameter("@cuenta", Cuenta));
                             DataTable dt = new DataTable();
                             SqlDataAdapter da = new SqlDataAdapter(cmd);
                             sql2.Open();
@@ -226,6 +304,9 @@ namespace GUI
                                     else
                                     {
                                         Console.WriteLine("La deuda no es la misma entre bases");
+                                        Console.WriteLine("el valor de base interna es:" + Deuda1);
+                                        Console.WriteLine("el valor de base interna es:" + Deuda2);
+
                                     }
                                 }
                                 else
@@ -247,5 +328,7 @@ namespace GUI
 
             }
         }
+
+       
     }
 }

@@ -29,7 +29,7 @@ namespace GUI
             infCuenta.Content = Cuenta;
             infUsuario.Content = Usuario;
             infDeuda.Content = Deuda;
-         
+            
         }
 
 
@@ -48,8 +48,11 @@ namespace GUI
 
             object y = infUsuario.Content;
             string Usuario = y.ToString();
-            
-            Payment_View objFourthWindow = new Payment_View(Usuario, Deuda);
+
+            object z = infCuenta.Content;
+            string Cuenta = z.ToString();
+
+            Payment_View objFourthWindow = new Payment_View(Cuenta ,Usuario, Deuda);
             this.Visibility = Visibility.Hidden;
             objFourthWindow.Show();
         }

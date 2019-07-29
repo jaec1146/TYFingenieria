@@ -97,6 +97,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Product.cs" />
     <Compile Include="Usuario.cs" />
     <Compile Include="Usuario2.cs" />
     <Page Include="AccountView.xaml">

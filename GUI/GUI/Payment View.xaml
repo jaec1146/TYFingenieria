@@ -61,7 +61,11 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <Button Grid.Column="0" x:Name="Quinientos" Margin="2,2" Click="Quinientos_Click">$500</Button>
+            <Button Grid.Column="0" x:Name="Quinientos" Margin="2,2" Click="Quinientos_Click">
+                <StackPanel>
+                    <TextBlock Name="objquinientos">$500</TextBlock>
+                 </StackPanel>
+            </Button>
             <Button Grid.Column="1" x:Name="Docientos" Margin="2,2" Click="Docientos_Click">$200</Button>
             <Button Grid.Column="2" x:Name="Cien" Margin="2,2" Click="Cien_Click">$100</Button>
             <Button Grid.Column="3" x:Name="Ciencuenta" Margin="2,2" Click="Ciencuenta_Click">$50</Button>
