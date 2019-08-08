@@ -1,7 +1,7 @@
 USE [kiosko]
 GO
 
-/****** Object:  Table [dbo].[ClienteDB]    Script Date: 29/07/2019 08:10:32 p. m. ******/
+/****** Object:  Table [dbo].[ClienteDB]    Script Date: 08/08/2019 12:41:46 p. m. ******/
 SET ANSI_NULLS ON
 GO
 

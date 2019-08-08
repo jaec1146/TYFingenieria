@@ -37,139 +37,177 @@ namespace GUI
         string Usuario;
         string Cuenta;
 
-
-
-        private void Quinientos_Click(object sender, RoutedEventArgs e)
+        void DoNothing(object sender, EventArgs e)
         {
+        }
+
+
+         void Quinientos_Click(object sender, RoutedEventArgs e)
+        {
+            var Status = DeviceLibrary.Models.Enums.DeviceStatus.Enabled;
+            
             var Bill = DeviceLibrary.Models.Enums.DocumentType.Bill;
             Document objquinientos = new Document(500, Bill, 500);
+
             var deviceLibrary = new DeviceLibrary.DeviceLibrary();
             deviceLibrary.SimulateInsertion(objquinientos);
-            Console.WriteLine(objquinientos.Count);
 
             pago = pago + objquinientos.Count;
             infDepositado.Content = pago;   
             infRestante.Content = Convert.ToDouble(infDeuda2.Content) - pago;
-            
 
+            deviceLibrary.AcceptedDocument += new Action<Document>(deviceLibrary.SimulateInsertion);
+            deviceLibrary.AcceptedDocument -= null;
+
+            Console.WriteLine(Status);  
         }
+
+
+
 
 
         private void Docientos_Click(object sender, RoutedEventArgs e)
         {
             var Bill = DeviceLibrary.Models.Enums.DocumentType.Bill;
             Document objdocientos = new Document(200, Bill, 200);
+
             var deviceLibrary = new DeviceLibrary.DeviceLibrary();
             deviceLibrary.SimulateInsertion(objdocientos);
-            Console.WriteLine(objdocientos.Count);
 
             pago = pago + objdocientos.Count;
             infDepositado.Content = pago;
             infRestante.Content = Convert.ToDouble(infDeuda2.Content) - pago;
+
+            deviceLibrary.AcceptedDocument += new Action<Document>(deviceLibrary.SimulateInsertion);
+            deviceLibrary.AcceptedDocument -= null;
         }
 
         private void Cien_Click(object sender, RoutedEventArgs e)
         {
             var Bill = DeviceLibrary.Models.Enums.DocumentType.Bill;
             Document objcien = new Document(100, Bill, 100);
+
             var deviceLibrary = new DeviceLibrary.DeviceLibrary();
             deviceLibrary.SimulateInsertion(objcien);
-            Console.WriteLine(objcien.Count);
 
             pago = pago + objcien.Count;
             infDepositado.Content = pago;
             infRestante.Content = Convert.ToDouble(infDeuda2.Content) - pago;
+
+            deviceLibrary.AcceptedDocument += new Action<Document>(deviceLibrary.SimulateInsertion);
+            deviceLibrary.AcceptedDocument -= null;
         }
 
         private void Ciencuenta_Click(object sender, RoutedEventArgs e)
         {
             var Bill = DeviceLibrary.Models.Enums.DocumentType.Bill;
             Document objcincuenta = new Document(50, Bill, 50);
+
             var deviceLibrary = new DeviceLibrary.DeviceLibrary();
             deviceLibrary.SimulateInsertion(objcincuenta);
-            Console.WriteLine(objcincuenta.Count);
 
             pago = pago + objcincuenta.Count;
             infDepositado.Content = pago;
             infRestante.Content = Convert.ToDouble(infDeuda2.Content) - pago;
+
+            deviceLibrary.AcceptedDocument += new Action<Document>(deviceLibrary.SimulateInsertion);
+            deviceLibrary.AcceptedDocument -= null;
         }
 
         private void Veinte_Click(object sender, RoutedEventArgs e)
         {
             var Bill = DeviceLibrary.Models.Enums.DocumentType.Bill;
             Document objveinte = new Document(20, Bill, 20);
+
             var deviceLibrary = new DeviceLibrary.DeviceLibrary();
             deviceLibrary.SimulateInsertion(objveinte);
-            Console.WriteLine(objveinte.Count);
 
             pago = pago + objveinte.Count;
             infDepositado.Content = pago;
             infRestante.Content = Convert.ToDouble(infDeuda2.Content) - pago;
+
+            deviceLibrary.AcceptedDocument += new Action<Document>(deviceLibrary.SimulateInsertion);
+            deviceLibrary.AcceptedDocument -= null;
         }
 
         private void Diez_Click(object sender, RoutedEventArgs e)
         {
             var Coin = DeviceLibrary.Models.Enums.DocumentType.Coin;
             Document objveinte = new Document(10, Coin, 10);
+
             var deviceLibrary = new DeviceLibrary.DeviceLibrary();
             deviceLibrary.SimulateInsertion(objveinte);
-            Console.WriteLine(objveinte.Count);
 
             pago = pago + objveinte.Count;
             infDepositado.Content = pago;
             infRestante.Content = Convert.ToDouble(infDeuda2.Content) - pago;
+
+            deviceLibrary.AcceptedDocument += new Action<Document>(deviceLibrary.SimulateInsertion);
+            deviceLibrary.AcceptedDocument -= null;
         }
 
         private void Cinco_Click_1(object sender, RoutedEventArgs e)
         {
             var Coin = DeviceLibrary.Models.Enums.DocumentType.Coin;
             Document objcinco = new Document(5, Coin, 5);
+
             var deviceLibrary = new DeviceLibrary.DeviceLibrary();
             deviceLibrary.SimulateInsertion(objcinco);
-            Console.WriteLine(objcinco.Count);
 
             pago = pago + objcinco.Count;
             infDepositado.Content = pago;
             infRestante.Content = Convert.ToDouble(infDeuda2.Content) - pago;
+
+            deviceLibrary.AcceptedDocument += new Action<Document>(deviceLibrary.SimulateInsertion);
+            deviceLibrary.AcceptedDocument -= null;
         }
 
         private void Dos_Click(object sender, RoutedEventArgs e)
         {
             var Coin = DeviceLibrary.Models.Enums.DocumentType.Coin;
             Document objdos = new Document(2, Coin, 2);
+
             var deviceLibrary = new DeviceLibrary.DeviceLibrary();
             deviceLibrary.SimulateInsertion(objdos);
-            Console.WriteLine(objdos.Count);
 
             pago = pago + objdos.Count;
             infDepositado.Content = pago;
             infRestante.Content = Convert.ToDouble(infDeuda2.Content) - pago;
+
+            deviceLibrary.AcceptedDocument += new Action<Document>(deviceLibrary.SimulateInsertion);
+            deviceLibrary.AcceptedDocument -= null;
         }
 
         private void Uno_Click(object sender, RoutedEventArgs e)
         {
             var Coin = DeviceLibrary.Models.Enums.DocumentType.Coin;
             Document objuno = new Document(1, Coin, 1);
+
             var deviceLibrary = new DeviceLibrary.DeviceLibrary();
             deviceLibrary.SimulateInsertion(objuno);
-            Console.WriteLine(objuno.Count);
-
+           
             pago = pago + objuno.Count;
             infDepositado.Content = pago;
             infRestante.Content = Convert.ToDouble(infDeuda2.Content) - pago;
+
+            deviceLibrary.AcceptedDocument += new Action<Document>(deviceLibrary.SimulateInsertion);
+            deviceLibrary.AcceptedDocument -= null;
         }
 
         private void CincoCentavos_Click(object sender, RoutedEventArgs e)
         {
             var Coin = DeviceLibrary.Models.Enums.DocumentType.Coin;
             Document objCincoCentavos = new Document(1/2, Coin, 1/2);
+            
             var deviceLibrary = new DeviceLibrary.DeviceLibrary();
             deviceLibrary.SimulateInsertion(objCincoCentavos);
-            Console.WriteLine(objCincoCentavos.Count);
-
-            pago = pago + objCincoCentavos.Count;
+                
+            pago = pago + 0.5;
             infDepositado.Content = pago;
             infRestante.Content = Convert.ToDouble(infDeuda2.Content) - pago;
+
+            deviceLibrary.AcceptedDocument += new Action<Document>(deviceLibrary.SimulateInsertion);
+            deviceLibrary.AcceptedDocument -= null;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -304,7 +342,7 @@ namespace GUI
                                     else
                                     {
                                         Console.WriteLine("La deuda no es la misma entre bases");
-                                        Console.WriteLine("el valor de base interna es:" + Deuda1);
+                                        Console.WriteLine("el valor de base externa es:" + Deuda1);
                                         Console.WriteLine("el valor de base interna es:" + Deuda2);
 
                                     }
